@@ -33,12 +33,13 @@ static inline uint32_t lfs_min(uint32_t a, uint32_t b) {
     return (a < b) ? a : b;
 }
 
-static inline uint32_t lfs_ctz(uint32_t a) {
-    return __builtin_ctz(a);
-}
-
 static inline uint32_t lfs_npw2(uint32_t a) {
     return 32 - __builtin_clz(a-1);
+}
+
+static inline uint32_t lfs_ctz(uint32_t a) {
+    //return __builtin_ctz(a);
+    return lfs_npw2((a & -a) + 1) - 1;
 }
 
 static inline uint32_t lfs_popc(uint32_t a) {
